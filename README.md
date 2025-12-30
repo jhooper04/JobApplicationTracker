@@ -36,7 +36,7 @@ docker-compose up
 On the first run, apply database migrations:
 
 ```bash
-docker-compose exec web npm run migrate
+docker-compose exec web npm run migrate dev
 ```
 
 The application will be available at http://localhost:3000
@@ -78,7 +78,7 @@ DATABASE_URL=postgresql://job_tracker_user:Password123!@localhost:5432/job_track
 3. Install dependencies, migrate database, and start the development server
 
 ```bash
-npm install && npm run migrate && npm run dev
+npm install && npm run migrate dev && npm run dev
 ```
 
 The application will be available at http://localhost:3000
