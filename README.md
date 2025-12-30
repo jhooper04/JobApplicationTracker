@@ -33,6 +33,12 @@ This project includes a Docker Compose setup for consistent and quick local deve
 docker-compose up
 ```
 
+On the first run, apply database migrations:
+
+```bash
+docker-compose exec web npm run migrate
+```
+
 The application will be available at http://localhost:3000
 
 ### Option B: Run Locally Without Docker
