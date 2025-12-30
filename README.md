@@ -30,7 +30,7 @@ First clone the repository with `git clone https://github.com/jhooper04/JobAppli
 This project includes a Docker Compose setup for consistent and quick local development.
 
 ```bash
-docker-compose up
+docker compose up -d
 ```
 
 On the first run, apply database migrations:
@@ -82,3 +82,16 @@ npm install && npm run migrate dev && npm run dev
 ```
 
 The application will be available at http://localhost:3000
+
+## Testing
+
+This project includes unit tests for:
+- Request validation schemas
+- API route behavior
+- Frontend form validation and UI logic
+
+Tests can be run with:
+
+```bash
+npm run test
+```
