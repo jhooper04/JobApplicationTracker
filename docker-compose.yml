@@ -9,7 +9,7 @@ services:
       - .:/app
       - /app/node_modules
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/job_tracker
+      DATABASE_URL: ${DATABASE_URL}
     depends_on:
       - db
   db:

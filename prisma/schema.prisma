@@ -5,10 +5,76 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+enum ApplicationStatus {
+  APPLIED
+  SCREENING
+  INTERVIEWING
+  OFFER
+  REJECTED
+  WITHDRAWN
+}
+
+enum ApplicationSource {
+  LINKEDIN
+  COMPANY_SITE
+  REFERRAL
+  RECRUITER
+  OTHER
+}
+
+enum InterviewType {
+  PHONE
+  TECHNICAL
+  ONSITE
+  FINAL
+}
+
+model JobApplication {
+  id           String              @id @default(uuid())
+  companyName  String
+  jobTitle     String
+  location     String
+  isRemote     Boolean             @default(false)
+  status       ApplicationStatus   @default(APPLIED)
+  source       ApplicationSource   @default(OTHER)
+  appliedDate  DateTime
+
+  interviews   Interview[]
+  notes        ApplicationNote[]
+
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+}
+
+model Interview {
+  id              String        @id @default(uuid())
+  application     JobApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  applicationId   String
+
+  type            InterviewType
+  scheduledAt     DateTime
+  interviewerName String?
+  notes           String?
+
+  createdAt       DateTime      @default(now())
+  updatedAt    DateTime         @updatedAt
+}
+
+model ApplicationNote {
+  id              String        @id @default(uuid())
+  application     JobApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  applicationId   String
+
+  content         String
+
+  createdAt       DateTime      @default(now())
+  updatedAt    DateTime         @updatedAt
 }
